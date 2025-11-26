@@ -1,0 +1,81 @@
+1). Best Time to Buy and Sell Stock(Easy)
+
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+ 
+
+Example 1:
+
+Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+Example 2:
+
+Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transactions are done and the max profit = 0.
+ 
+
+Constraints:
+
+1 <= prices.length <= 105
+0 <= prices[i] <= 104
+
+
+Solution -
+
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        ans = 0
+        minimumSoFar = prices[0]
+        for i  in range(1,len(prices)):
+            currentProfit= prices[i] - minimumSoFar
+            if(currentProfit >ans):
+                ans = currentProfit
+            minimumSoFar = min(minimumSoFar, prices[i])
+        return ans
+        
+        
+
+
+The provided code uses a single-pass greedy algorithm (also known as the one-pass minimum tracking pattern) to solve the "Best Time to Buy and Sell Stock" problem. This approach efficiently finds the maximum profit by keeping track of the lowest stock price seen so far and the maximum profit that can be made by selling on each day.
+
+Pattern Used: One-Pass Minimum Tracking
+The solution scans the prices list from left to right.
+
+It keeps updating the minimum price encountered so far (minimumSoFar) and computes the potential profit for selling on the current day.
+
+At each step, it compares and updates the maximum profit (ans).
+
+This is a form of the greedy algorithm, since it makes the optimal decision for the minimum price seen so far at each step without revisiting earlier choices.
+
+Time Complexity Explanation
+Time Complexity: O(n)
+The algorithm iterates through the prices list exactly once, where n is the length of the list.
+
+Each operation inside the loop (min, subtraction, comparison) is O(1).
+
+Therefore, the entire algorithm runs in linear time relative to the input size.
+
+How It's Calculated:
+There is a single for-loop over the data, so the number of operations is proportional to the length, which gives 
+O
+(
+n
+)
+O(n).
+
+Memory Complexity Explanation
+Space Complexity: O(1)
+The algorithm uses only a few variables (ans, minimumSoFar, currentProfit) to store intermediary results, regardless of the input size.
+
+No additional data structures (like arrays or lists that grow with input size) are used.
+
+How It's Calculated:
+Only a constant amount of extra space is needed; this is independent of the input size.
