@@ -46,3 +46,43 @@ class Solution:
                 ans.append(s + 1 )
                 break
         return ans
+
+
+Approach Name
+This is called the two-pointer or dual-pointer approach.​
+
+By using pointers at both ends and moving towards the center, you efficiently search for the answer without checking all pairs.
+
+Time Complexity
+Time Complexity: O(n)
+
+Each element is considered at most once (each pointer only moves forward or backward).
+
+The loop iterates at most n times.
+
+Space Complexity: O(1)
+
+Only a few variables are kept (pointers and the output list).
+
+-----------------------------------------------------------------------------
+For unsorted Array
+                               
+Solution for Unsorted or Random-Order Array
+If the array is not sorted, the above two-pointer technique will not work since the logic depends on order. Instead, use:
+
+A hash map (dictionary) to store previously seen numbers and their indices.
+
+For each number x, check if target - x exists in the map; if yes, return indices.
+
+This approach runs in O(n) time and uses O(n) extra space.
+
+
+ class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        seen = {}
+        for i, num in enumerate(numbers):
+            complement = target - num
+            if complement in seen:
+                return [seen[complement] + 1, i + 1]
+            seen[num] = i
+
