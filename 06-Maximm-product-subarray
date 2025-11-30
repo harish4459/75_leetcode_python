@@ -26,20 +26,24 @@ The product of any subarray of nums is guaranteed to fit in a 32-bit integer.
 
 solution-
 Kadane-like dynamic programming approach that tracks both current max and current min products for each position.
-
-for n in nums:
-    if n == 0:
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        res = max(nums)
         curMin, curMax = 1, 1 
-        continue
-
-    tmp = curMax * n             # store old curMax * n before overwriting curMax
-    curMax = max(n * curMax,     # extend previous max
-                 n * curMin,     # extend previous min (might flip sign)
-                 n)              # start fresh from n
-    curMin = min(tmp,            # use old curMax*n
-                 n * curMin,     # extend previous min
-                 n)              # start fresh from n
-    res = max(res, curMax)       # update global best
+        for n in nums:
+            if n == 0:
+                curMin, curMax = 1, 1 
+                continue
+        
+            tmp = curMax * n             # store old curMax * n before overwriting curMax
+            curMax = max(n * curMax,     # extend previous max
+                         n * curMin,     # extend previous min (might flip sign)
+                         n)              # start fresh from n
+            curMin = min(tmp,            # use old curMax*n
+                         n * curMin,     # extend previous min
+                         n)              # start fresh from n
+            res = max(res, curMax)       # update global best
+       return res
 
 Time complexity
   The loop runs once over nums.
