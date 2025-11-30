@@ -1,0 +1,52 @@
+Given an integer array nums, find a subarray that has the largest product, and return the product.
+
+The test cases are generated so that the answer will fit in a 32-bit integer.
+
+Note that the product of an array with a single element is the value of that element.
+
+ 
+
+Example 1:
+
+Input: nums = [2,3,-2,4]
+Output: 6
+Explanation: [2,3] has the largest product 6.
+Example 2:
+
+Input: nums = [-2,0,-1]
+Output: 0
+Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
+ 
+
+Constraints:
+
+1 <= nums.length <= 2 * 104
+-10 <= nums[i] <= 10
+The product of any subarray of nums is guaranteed to fit in a 32-bit integer.
+
+solution-
+Kadane-like dynamic programming approach that tracks both current max and current min products for each position.
+
+for n in nums:
+    if n == 0:
+        curMin, curMax = 1, 1 
+        continue
+
+    tmp = curMax * n             # store old curMax * n before overwriting curMax
+    curMax = max(n * curMax,     # extend previous max
+                 n * curMin,     # extend previous min (might flip sign)
+                 n)              # start fresh from n
+    curMin = min(tmp,            # use old curMax*n
+                 n * curMin,     # extend previous min
+                 n)              # start fresh from n
+    res = max(res, curMax)       # update global best
+
+Time complexity
+  The loop runs once over nums.
+  All operations inside the loop are O(1).
+  herefore time complexity is O(n),where n is len(nums).
+
+Space complexity
+Extra variables: res, curMin, curMax, tmp, and the loop variable n.
+No extra arrays or data structures proportional to input size.
+Therefore space complexity is O(1) auxiliary space.
